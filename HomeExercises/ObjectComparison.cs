@@ -15,20 +15,17 @@ namespace HomeExercises
 			var expectedTsar = new Person("Ivan IV The Terrible", 54, 170, 70,
 				new Person("Vasili III of Russia", 28, 170, 60, null));
 
-			// Перепишите код на использование Fluent Assertions.
-			Assert.AreEqual(actualTsar.Name, expectedTsar.Name);
-			Assert.AreEqual(actualTsar.Age, expectedTsar.Age);
-			Assert.AreEqual(actualTsar.Height, expectedTsar.Height);
-			Assert.AreEqual(actualTsar.Weight, expectedTsar.Weight);
+			actualTsar.ShouldBeEquivalentTo(expectedTsar, options =>
+				options.Excluding(tsar => tsar.SelectedMemberInfo.Name == "Id"));
 
-			Assert.AreEqual(expectedTsar.Parent.Name, actualTsar.Parent.Name);
-			Assert.AreEqual(expectedTsar.Parent.Age, actualTsar.Parent.Age);
-			Assert.AreEqual(expectedTsar.Parent.Height, actualTsar.Parent.Height);
-			Assert.AreEqual(expectedTsar.Parent.Parent, actualTsar.Parent.Parent);
 		}
 
 		[Test]
-		[Description("Альтернативное решение. Какие у него недостатки?")]
+		[Description("Альтернативное решение. Какие у него недостатки?" +
+					 "Недостаки: тест сложее расширить, чем новый." +
+					 "Новый тест при изменении класса менять не потребуется." +
+					 "А также для того, чтобы определить какие именно поля не совпадают," +
+					 "необходимо произвести дебаг теста")]
 		public void CheckCurrentTsar_WithCustomEquality()
 		{
 			var actualTsar = TsarRegistry.GetCurrentTsar();
