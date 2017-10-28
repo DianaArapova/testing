@@ -19,7 +19,7 @@ namespace HomeExercises
 			actualTsar.ShouldBeEquivalentTo(expectedTsar, options =>
 				options.Excluding(tsar =>
 					tsar.SelectedMemberInfo.DeclaringType == typeof(Person) &&
-					tsar.SelectedMemberInfo.Name == nameof(expectedTsar.Id)));
+					tsar.SelectedMemberInfo.Name == nameof(Person.Id)));
 
 		}
 
