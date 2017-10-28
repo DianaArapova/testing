@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Linq;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace HomeExercises
@@ -15,8 +16,10 @@ namespace HomeExercises
 			var expectedTsar = new Person("Ivan IV The Terrible", 54, 170, 70,
 				new Person("Vasili III of Russia", 28, 170, 60, null));
 
+			var nameOfExcludingField = nameof(expectedTsar.Id);
 			actualTsar.ShouldBeEquivalentTo(expectedTsar, options =>
-				options.Excluding(tsar => tsar.SelectedMemberInfo.Name == "Id"));
+				options.Excluding(tsar => 
+				tsar.SelectedMemberInfo.Name == nameOfExcludingField));
 
 		}
 
@@ -33,6 +36,7 @@ namespace HomeExercises
 			new Person("Vasili III of Russia", 28, 170, 60, null));
 
 			// Какие недостатки у такого подхода? 
+			//AreEqual(actualTsar, expectedTsar).Should().BeTrue();
 			Assert.True(AreEqual(actualTsar, expectedTsar));
 
 		}
