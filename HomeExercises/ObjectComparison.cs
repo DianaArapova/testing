@@ -16,10 +16,10 @@ namespace HomeExercises
 			var expectedTsar = new Person("Ivan IV The Terrible", 54, 170, 70,
 				new Person("Vasili III of Russia", 28, 170, 60, null));
 
-			var nameOfExcludingField = nameof(expectedTsar.Id);
 			actualTsar.ShouldBeEquivalentTo(expectedTsar, options =>
-				options.Excluding(tsar => 
-				tsar.SelectedMemberInfo.Name == nameOfExcludingField));
+				options.Excluding(tsar =>
+					tsar.SelectedMemberInfo.DeclaringType == typeof(Person) &&
+					tsar.SelectedMemberInfo.Name == nameof(expectedTsar.Id)));
 
 		}
 
